@@ -1,13 +1,8 @@
 import "./App.css";
-import Layout from "./components/Layout";
+import PatientsList from "./pages/PatientsList";
 
 function App() {
-  // Render patient information
-  return (
-    <div>
-      <Layout />
-    </div>
-  );
+  return <PatientsList />;
 }
 
 export default App;
