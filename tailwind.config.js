@@ -7,6 +7,11 @@ export default {
         "5pe": "5%",
         "95pe": "95%",
       },
+      colors: {
+        grey: "#BDBDBD",
+        lightGrey: "#f5f5f5",
+        // Add more custom colors as needed
+      },
     },
   },
   plugins: [],

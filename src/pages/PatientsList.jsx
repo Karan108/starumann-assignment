@@ -4,12 +4,12 @@ import { usePatientInfo } from "../apis/usePatientInfo";
 import Table from "../components/Table";
 import { formatAddresses } from "../utils/addressFormatter";
 import Input from "../components/Input";
-// import Table from "./Table";
+import SearchIcon from "../assets/SearchIcon";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 function PatientsList() {
   const [value, setValue] = useState([21, 50]);
 
-  // Use the custom hook
   const {
     filteredPatientInfo: patientInfo,
     loading,
@@ -47,44 +47,18 @@ function PatientsList() {
 
   return (
     <div
-      className={`flex ${loading ? "w-screen h-screen" : ""}`}
-      style={{
-        // create tailwind variable
-        backgroundColor: "#f5f5f5",
-      }}
+      className={`flex bg-lightGrey ${loading ? " h-screen" : ""} min-h-screen`}
     >
       <div style={{ backgroundColor: "#003366" }} className="w-5pe"></div>
       <div className="w-95pe">
-        <div
-          className="w-full p-5 mb-1"
-          style={{
-            // create tailwind variable
-            backgroundColor: "#ffffff",
-          }}
-        >
-          <div
-            className="flex items-center gap-2.5"
-            style={{
-              // create tailwind variable
-              color: "#BDBDBD",
-            }}
-          >
+        <div className="w-full p-5 mb-1 bg-white">
+          <div className="flex items-center gap-2.5 text-grey">
             <span>
-              {/* extract into component */}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 30 30"
-                width="20px"
-                height="20px"
-                fill="#BDBDBD"
-              >
-                <path d="M 13 3 C 7.4889971 3 3 7.4889971 3 13 C 3 18.511003 7.4889971 23 13 23 C 15.396508 23 17.597385 22.148986 19.322266 20.736328 L 25.292969 26.707031 A 1.0001 1.0001 0 1 0 26.707031 25.292969 L 20.736328 19.322266 C 22.148986 17.597385 23 15.396508 23 13 C 23 7.4889971 18.511003 3 13 3 z M 13 5 C 17.430123 5 21 8.5698774 21 13 C 21 17.430123 17.430123 21 13 21 C 8.5698774 21 5 17.430123 5 13 C 5 8.5698774 8.5698774 5 13 5 z" />
-              </svg>
+              <SearchIcon />
             </span>
-            {/* add styles */}
             <Input
               onChange={(e) => filterBySearch(e.target.value)}
-              placeholder
+              placeholder={"Search by name"}
             />
           </div>
         </div>
@@ -103,20 +77,23 @@ function PatientsList() {
             </div>
           </div>
           <div className="flex items-center justify-center">
-            <Table
-              data={patientInfo}
-              loading={loading}
-              headers={[
-                "Id",
-                "Name",
-                "Gender",
-                "BirthDate",
-                "Address",
-                "Phone",
-              ]}
-              rowRender={renderPatientRow}
-            />
-            {/* <Table patientInfo={patientInfo} loading={loading} error={error} /> */}
+            {loading ? (
+              <LoadingSpinner />
+            ) : (
+              <Table
+                data={patientInfo}
+                loading={loading}
+                headers={[
+                  "Id",
+                  "Name",
+                  "Gender",
+                  "BirthDate",
+                  "Address",
+                  "Phone",
+                ]}
+                rowRender={renderPatientRow}
+              />
+            )}
           </div>
         </div>
       </div>
